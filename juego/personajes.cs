@@ -60,11 +60,10 @@ namespace juego
             tipo = tipos[rnd1.Next(0,tipos.Count)];
             apodo = apodos[rnd1.Next(0,apodos.Count)];
 
-            DateTime nacimiento = new DateTime(rnd1.Next(1780, 2005), rnd1.Next(1, 13),rnd1.Next(1, 28));
+            DateTime nacimiento = new DateTime(rnd1.Next(1780, 2005), rnd1.Next(1, 13),rnd1.Next(1, 28));//mostrar año con los 4 numeros
             edad = rnd1.Next(0,301);//no seas pete ale, buscar la funcion del tp6 y restar fecha de nacimiento y actual
 
-            salud=100;
-            
+            salud=100;        
         }
     }
     
