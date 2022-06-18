@@ -4,14 +4,35 @@ namespace juego
     public class personajes 
     {
         
-        //caracteristicas
+        //-----------------CARACTERISTICAS----------------
         public int velocidad;
         public int destreza;
         public int fuerza;
         public int nivel;
         public int armadura;
 
-        //datos
+        
+
+        public void cargarCaracteristicasAleatorias()
+        {
+            Random rnd = new Random();
+            velocidad = rnd.Next(1,11);
+            destreza = rnd.Next(1,11);
+            fuerza = rnd.Next(1,11);
+            nivel = rnd.Next(1,11);
+            armadura = rnd.Next(1,11);
+        }
+
+        public void mostrarCaracteristicas(personajes personaje)
+        {
+            Console.WriteLine("Velocidad: "+ personaje.velocidad); 
+            Console.WriteLine("Destreza: "+ personaje.destreza); 
+            Console.WriteLine("Fuerza: "+ personaje.fuerza); 
+            Console.WriteLine("Nivel: "+ personaje.nivel); 
+            Console.WriteLine("Armadura: "+ personaje.armadura); 
+        }
+
+        //-----------------DATOS-----------------------
         //string[] tipo = {"pony","caballo","burro"};
         string ? tipo;
         List<string> tipos = new List<string>()
@@ -40,19 +61,7 @@ namespace juego
 
         DateTime fechaNacimiento;
         int edad;
-        int salud;
-
-        public void cargarCaracteristicasAleatorias()
-        {
-            Random rnd = new Random();
-            velocidad = rnd.Next(1,11);
-            destreza = rnd.Next(1,11);
-            fuerza = rnd.Next(1,11);
-            nivel = rnd.Next(1,11);
-            armadura = rnd.Next(1,11);
-        }
-
-        
+        public int salud;        
         public void cargarDatosAleatorios()
         {
             var rnd1 = new Random();
@@ -60,10 +69,46 @@ namespace juego
             tipo = tipos[rnd1.Next(0,tipos.Count)];
             apodo = apodos[rnd1.Next(0,apodos.Count)];
 
-            DateTime nacimiento = new DateTime(rnd1.Next(1780, 2005), rnd1.Next(1, 13),rnd1.Next(1, 28));//mostrar año con los 4 numeros
-            edad = rnd1.Next(0,301);//no seas pete ale, buscar la funcion del tp6 y restar fecha de nacimiento y actual
+            fechaNacimiento = new DateTime(rnd1.Next(1780, 2005), rnd1.Next(1, 13),rnd1.Next(1, 29));//mostrar año con los 4 numeros
+            DateTime Actual = DateTime.Today;
+            edad = Convert.ToInt32(Actual.Year - fechaNacimiento.Year);
 
             salud=100;        
+        }
+        public void mostrarDatos(personajes personaje)
+        {
+            Console.WriteLine("Nombre: "+ personaje.nombre); 
+            Console.WriteLine("Apodo: "+ personaje.apodo); 
+            Console.WriteLine("Tipo: "+ personaje.tipo); 
+            Console.WriteLine("Fecha de Nacimiento: "+ fechaNacimiento.ToString("MM/dd/yyyy")); 
+            Console.WriteLine("Edad: "+ personaje.edad); 
+            Console.WriteLine("Salud: "+ personaje.salud); 
+
+        }
+
+        //--------------COMBATE-----------------
+        int poderDisparo;
+        int efectividadDisparo;
+        int valorDeAtaque;
+        int poderDefensa;
+        int maximoDanio;
+        float danioProvocado;
+        public void generarDatosCombate(personajes personaje)
+        {
+            poderDisparo = personaje.destreza * personaje.fuerza * personaje.nivel;
+            Random rnd = new Random();
+            efectividadDisparo = rnd.Next(1,101); //asi o 0.01 a 0.9
+            valorDeAtaque = poderDisparo * efectividadDisparo;
+            poderDefensa = personaje.armadura * personaje.velocidad;
+            maximoDanio = 50000;
+            danioProvocado = ((valorDeAtaque*efectividadDisparo - poderDefensa)/maximoDanio)*100;
+        } //si no los hago public no puedo llamarlos desde program, pero si los hago public no los deberia usar en la funcion, hice una funcion de combate directamente
+
+        public void Combate(personajes luchador1, personajes luchador2)
+        {
+            luchador1.salud = Convert.ToInt32(luchador1.salud - luchador2.danioProvocado);
+            luchador2.salud = Convert.ToInt32(luchador2.salud - luchador1.danioProvocado);
+            
         }
     }
     
