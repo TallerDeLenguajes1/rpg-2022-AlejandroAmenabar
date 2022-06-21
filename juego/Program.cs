@@ -1,43 +1,48 @@
 ﻿using juego;
+using System.IO;
+
 // See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 
-List<personajes> Personajes = new List<personajes>();
+List<personajes> Personajes = funciones.crearLista();
 
-for (int i = 1; i < 10; i++)
-{
-    personajes personaje = new personajes();
-    Console.WriteLine("\n\nPERSONAJE "+i+":");
-    personaje.cargarDatosAleatorios();
-    Console.WriteLine("\tDatos del personaje "+ i + ":");
-    personaje.mostrarDatos(personaje);
-    personaje.cargarCaracteristicasAleatorias();
-    Console.WriteLine("\tCaracteristicas del personaje "+ i + ":");
-    personaje.mostrarCaracteristicas(personaje);
-    Personajes.Add(personaje); //agrego el personaje creado a la lista de personajes
-}
+
 //hasta aca todo bien 
 
 //-----COMBATE-----
-var rnd = new Random();
-personajes luchador1 = Personajes[rnd.Next(0,Personajes.Count)];
-luchador1.generarDatosCombate(luchador1);
 
-personajes luchador2 = Personajes[rnd.Next(0,Personajes.Count)];
-luchador2.generarDatosCombate(luchador2);
+//fijarme si esta bien la cantidad de combates
+//revisar las formulas de los ataques
+//revisar el remove de la lista cuando pierde
+//de ahi en mas creo que todo bien
 
-for (int i = 0; i < 3; i++)
-{
-    luchador1.Combate(luchador1,luchador2);
+funciones.Combate(Personajes);
+
+//-------FILES-------------
+
+string ruta = @"C:\Users\Alejandro\Documents\INGENIERIA\3ero\Taller1\rpg-2022-AlejandroAmenabar";
+
+string archivo = ruta + @"\ganadores.csv";
+FileStream FS;
+if(!File.Exists(archivo)){
+    FS=File.Create(archivo);
+    FS.Close();
 }
 
-System.Console.WriteLine("\n\nResultados del Combate"); //revisar no me da bien todavia
-System.Console.WriteLine("\nluchador 1");
-luchador1.mostrarCaracteristicas(luchador1);
-luchador1.mostrarDatos(luchador1);
-System.Console.WriteLine("\nluchador 2");
-luchador1.mostrarCaracteristicas(luchador2);
-luchador1.mostrarDatos(luchador2);
+using(StreamWriter lectura = File.AppendText(archivo)) //con el using ya no dependo del close
+{ 
+    //controlar si ya estan creados o no cuadno ya existe el archivo  
+    lectura.WriteLine("Personajes Ganadores"+";"+"Fuerza"+";"+"Salud"+"\n" );
+    lectura.WriteLine(Personajes[0].nombre + ";"+ Personajes[0].fuerza +";"+ Personajes[0].salud);
+} 
+
+
+
+
+
+
+
+
 
 
 

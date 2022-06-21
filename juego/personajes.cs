@@ -37,17 +37,27 @@ namespace juego
         string ? tipo;
         List<string> tipos = new List<string>()
         {
-            "tipo1",
-            "tipo2",
-            "tipo3",
+            "WhiteWalkers",
+            "Lannister",
+            "Dothraki",
+            "Stark",
+            "Baratheon",
+            "Targaryen",
+            "Snow",
+            "Tyrell",
         };
         //string[] nombre = {"pepita","pepito","juancito","pablito"};
-        string ? nombre;
+        public string ? nombre;
         List<string> nombres = new List<string>()
         {
             "pepita",
-            "pepito",
+            "Carlos",
             "griselda",
+            "Jon",
+            "Aegon",
+            "Daenerys",
+            "Sansa",
+            "Arya",
         };
 
         //string[] apodo = {"piper","elbromas","azucar"};
@@ -57,6 +67,11 @@ namespace juego
             "piper",
             "elbromas",
             "azucar",
+            "caniche",
+            "mocho",
+            "calvin",
+            "Cuasimodo",
+            "llaverito",
         };
 
         DateTime fechaNacimiento;
@@ -98,17 +113,26 @@ namespace juego
             poderDisparo = personaje.destreza * personaje.fuerza * personaje.nivel;
             Random rnd = new Random();
             efectividadDisparo = rnd.Next(1,101); //asi o 0.01 a 0.9
-            valorDeAtaque = poderDisparo * efectividadDisparo;
+            valorDeAtaque = poderDisparo * efectividadDisparo /100; //agregue el /100
             poderDefensa = personaje.armadura * personaje.velocidad;
-            maximoDanio = 50000;
-            danioProvocado = ((valorDeAtaque*efectividadDisparo - poderDefensa)/maximoDanio)*100;
+            maximoDanio = 20;
+            danioProvocado = ((valorDeAtaque - poderDefensa)/maximoDanio); //le saque el *100 y efectividadDeDisparo
         } //si no los hago public no puedo llamarlos desde program, pero si los hago public no los deberia usar en la funcion, hice una funcion de combate directamente
 
         public void Combate(personajes luchador1, personajes luchador2)
         {
             luchador1.salud = Convert.ToInt32(luchador1.salud - luchador2.danioProvocado);
             luchador2.salud = Convert.ToInt32(luchador2.salud - luchador1.danioProvocado);
-            
+        }
+        public void beneficiosGanador(personajes luchador)
+        {
+            if(luchador.nivel<5){
+                luchador.nivel++;
+            }
+            if(luchador.salud<80){
+                luchador.salud+=10;
+                luchador.fuerza+=2;
+            }
         }
     }
     

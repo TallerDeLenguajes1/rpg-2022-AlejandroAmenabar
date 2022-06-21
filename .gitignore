@@ -431,4 +431,7 @@ obj/
 
 # Ignore code-workspaces
 
+#agregado
+.csv
+
 # End of https://www.toptal.com/developers/gitignore/api/csharp,dotnetcore,visualstudiocode
