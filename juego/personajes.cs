@@ -5,11 +5,11 @@ namespace juego
     {
         
         //-----------------CARACTERISTICAS----------------
-        public int velocidad;
-        public int destreza;
-        public int fuerza;
-        public int nivel;
-        public int armadura;
+        public int velocidad{get;set;}
+        public int destreza{get;set;}
+        public int fuerza{get;set;}
+        public int nivel{get;set;}
+        public int armadura{get;set;}
 
         
 
@@ -47,7 +47,7 @@ namespace juego
             "Tyrell",
         };
         //string[] nombre = {"pepita","pepito","juancito","pablito"};
-        public string ? nombre;
+        public string ? nombre{get;set;}
         List<string> nombres = new List<string>()
         {
             "pepita",
@@ -61,7 +61,7 @@ namespace juego
         };
 
         //string[] apodo = {"piper","elbromas","azucar"};
-        string ? apodo;
+        string ? apodo{get;set;}
         List<string> apodos = new List<string>()
         {
             "piper",
@@ -74,9 +74,9 @@ namespace juego
             "llaverito",
         };
 
-        DateTime fechaNacimiento;
-        int edad;
-        public int salud;        
+        DateTime fechaNacimiento{get;set;}
+        int edad{get;set;}
+        public int salud{get;set;}        
         public void cargarDatosAleatorios()
         {
             var rnd1 = new Random();

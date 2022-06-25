@@ -1,7 +1,9 @@
+using System.Text.Json;
 namespace juego
 {
     static class funciones
     {
+        //------INICIALIZANDO-------
         public static List<personajes> crearLista()
         {
             List<personajes> Personajes = new List<personajes>();
@@ -21,7 +23,7 @@ namespace juego
 
             return Personajes;
         }
-
+        //---------COMBATE-----------
         public static List<personajes> Combate(List<personajes> Personajes)
         {
             var rnd = new Random();
@@ -67,5 +69,53 @@ namespace juego
 
             return Personajes;
         }
+
+        //-------CREAR FILE CSV
+        public static void CrearFileCSV(List<personajes> Personajes)
+        {
+            string ruta = @"C:\Users\Alejandro\Documents\INGENIERIA\3ero\Taller1\rpg-2022-AlejandroAmenabar";
+
+            string archivo = ruta + @"\ganadores.csv";
+            FileStream FS;
+            if(!File.Exists(archivo)){
+                FS=File.Create(archivo);
+                FS.Close();
+            }
+
+            using(StreamWriter lectura = File.AppendText(archivo)) //con el using ya no dependo del close
+            { 
+                //controlar si ya estan creados o no cuadno ya existe el archivo  
+                lectura.WriteLine("Personajes Ganadores"+";"+"Fuerza"+";"+"Salud"+"\n" );
+                lectura.WriteLine(Personajes[0].nombre + ";"+ Personajes[0].fuerza +";"+ Personajes[0].salud);
+            } 
+        }
+
+        //------CREAR FILE JSON ------------
+        public static void CrearFileJson(List<personajes> Personajes)
+        {
+            string ruta = @"C:\Users\Alejandro\Documents\INGENIERIA\3ero\Taller1\rpg-2022-AlejandroAmenabar";
+            if(Directory.Exists(ruta))
+            {
+                string nombreArchivo = ruta + @"\jugadores.json";
+                FileStream FS;
+                if(!File.Exists(nombreArchivo)){
+                    FS=File.Create(nombreArchivo);
+                    FS.Close();
+                } 
+                string json; //string para lo  que devuelva el stream serialize
+                
+                FileStream filestreamJson = new FileStream(nombreArchivo, FileMode.Open);           
+                StreamWriter streamWriterJson = new StreamWriter(filestreamJson);
+
+                json =  JsonSerializer.Serialize(Personajes); //serializa la lista
+                
+                    
+                streamWriterJson.WriteLine(json); //escribo en el json
+
+                streamWriterJson.Close();//cierro
+                filestreamJson.Close();
+            }
+        }
+
     }
 }
