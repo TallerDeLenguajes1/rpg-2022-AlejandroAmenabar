@@ -1,8 +1,36 @@
-
+using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace juego
 {
-    public class personajes 
+    public class Caracther
     {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [JsonPropertyName("firstName")]
+        public string ? FirstName { get; set; }
+
+        [JsonPropertyName("lastName")]
+        public string ? LastName { get; set; }
+
+        [JsonPropertyName("fullName")]
+        public string ? FullName { get; set; }
+
+        [JsonPropertyName("title")]
+        public string ? Title { get; set; }
+
+        [JsonPropertyName("family")]
+        public string ? Family { get; set; }
+
+        [JsonPropertyName("image")]
+        public string ? Image { get; set; }
+
+        [JsonPropertyName("imageUrl")]
+        public string ? ImageUrl { get; set; }
+    }
+    public class personajes 
+    {   
         
         //-----------------CARACTERISTICAS----------------
         public int velocidad{get;set;}
@@ -10,9 +38,6 @@ namespace juego
         public int fuerza{get;set;}
         public int nivel{get;set;}
         public int armadura{get;set;}
-
-        
-
         public void cargarCaracteristicasAleatorias()
         {
             Random rnd = new Random();
@@ -33,56 +58,19 @@ namespace juego
         }
 
         //-----------------DATOS-----------------------
-        //string[] tipo = {"pony","caballo","burro"};
         string ? tipo;
-        List<string> tipos = new List<string>()
-        {
-            "WhiteWalkers",
-            "Lannister",
-            "Dothraki",
-            "Stark",
-            "Baratheon",
-            "Targaryen",
-            "Snow",
-            "Tyrell",
-        };
-        //string[] nombre = {"pepita","pepito","juancito","pablito"};
         public string ? nombre{get;set;}
-        List<string> nombres = new List<string>()
-        {
-            "pepita",
-            "Carlos",
-            "griselda",
-            "Jon",
-            "Aegon",
-            "Daenerys",
-            "Sansa",
-            "Arya",
-        };
-
-        //string[] apodo = {"piper","elbromas","azucar"};
         string ? apodo{get;set;}
-        List<string> apodos = new List<string>()
-        {
-            "piper",
-            "elbromas",
-            "azucar",
-            "caniche",
-            "mocho",
-            "calvin",
-            "Cuasimodo",
-            "llaverito",
-        };
-
         DateTime fechaNacimiento{get;set;}
         int edad{get;set;}
         public int salud{get;set;}        
-        public void cargarDatosAleatorios()
+        public void cargarDatosAleatorios(List<Caracther> personajesGot)
         {
             var rnd1 = new Random();
-            nombre = nombres[rnd1.Next(0,nombres.Count)];
-            tipo = tipos[rnd1.Next(0,tipos.Count)];
-            apodo = apodos[rnd1.Next(0,apodos.Count)];
+            int i = rnd1.Next(0,personajesGot.Count);
+            nombre = personajesGot[i].FullName;
+            tipo = personajesGot[i].Family;
+            apodo = personajesGot[i].Title;
 
             fechaNacimiento = new DateTime(rnd1.Next(1780, 2005), rnd1.Next(1, 13),rnd1.Next(1, 29));//mostrar año con los 4 numeros
             DateTime Actual = DateTime.Today;
@@ -94,7 +82,7 @@ namespace juego
         {
             Console.WriteLine("Nombre: "+ personaje.nombre); 
             Console.WriteLine("Apodo: "+ personaje.apodo); 
-            Console.WriteLine("Tipo: "+ personaje.tipo); 
+            Console.WriteLine("Familia: "+ personaje.tipo); 
             Console.WriteLine("Fecha de Nacimiento: "+ fechaNacimiento.ToString("MM/dd/yyyy")); 
             Console.WriteLine("Edad: "+ personaje.edad); 
             Console.WriteLine("Salud: "+ personaje.salud); 

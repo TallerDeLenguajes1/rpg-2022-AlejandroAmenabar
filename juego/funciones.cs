@@ -1,10 +1,49 @@
+using System.Net;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace juego
 {
     static class funciones
     {
+        //----API------------
+        public static List<Caracther> DescargarApi()
+        {
+            List<Caracther> personajesGot;
+            var url = $"https://thronesapi.com/api/v2/Characters";
+            var request = (HttpWebRequest) WebRequest.Create(url);
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+            try{
+                using(WebResponse respuesta = request.GetResponse()){
+                    using(Stream StreamReader = respuesta.GetResponseStream()){
+                        if (StreamReader != null)
+                        {
+                            using (StreamReader objReader = new StreamReader(StreamReader))
+                            {
+                                string responseBody = objReader.ReadToEnd();
+                                personajesGot = JsonSerializer.Deserialize<List<Caracther>>(responseBody);
+                                // foreach (Caracther personaje in personajesGot)
+                                // {
+                                //     Console.WriteLine(personaje.FullName);
+                                // }
+                            }
+                            return personajesGot;   
+                        }else
+                        {
+                            Console.WriteLine("No Responde");
+                            return null;
+                        }
+                    }
+                }
+                
+            }catch(WebException e){
+                    Console.WriteLine(e.ToString());
+                    return null;
+            }
+        }
         //------INICIALIZANDO-------
-        public static List<personajes> crearLista()
+        public static List<personajes> crearLista(List<Caracther> personajesGot)
         {
             List<personajes> Personajes = new List<personajes>();
 
@@ -12,7 +51,7 @@ namespace juego
             {
                 personajes personaje = new personajes();
                 Console.WriteLine("\n\nPERSONAJE "+i+":");
-                personaje.cargarDatosAleatorios();
+                personaje.cargarDatosAleatorios(personajesGot);
                 Console.WriteLine("\tDatos del personaje "+ i + ":");
                 personaje.mostrarDatos(personaje);
                 personaje.cargarCaracteristicasAleatorias();

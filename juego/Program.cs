@@ -1,8 +1,15 @@
-﻿using juego;
-using System.IO;
+﻿using System.IO;
+using System;
+using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using juego;
 
+//---API----
+List<Caracther> personajesGot = funciones.DescargarApi();
+    
 //------INICIALIZANDO
-List<personajes> Personajes = funciones.crearLista();
+List<personajes> Personajes = funciones.crearLista(personajesGot);
 //hasta aca todo bien 
 
 //--------FILES JSON--------
