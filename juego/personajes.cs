@@ -29,6 +29,7 @@ namespace juego
         [JsonPropertyName("imageUrl")]
         public string ? ImageUrl { get; set; }
     }
+    
     public class personajes 
     {   
         
