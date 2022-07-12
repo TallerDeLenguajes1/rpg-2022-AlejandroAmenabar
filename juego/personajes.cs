@@ -29,7 +29,7 @@ namespace juego
         [JsonPropertyName("imageUrl")]
         public string ? ImageUrl { get; set; }
     }
-    
+
     public class personajes 
     {   
         
@@ -104,9 +104,9 @@ namespace juego
             efectividadDisparo = rnd.Next(1,101); //asi o 0.01 a 0.9
             valorDeAtaque = poderDisparo * efectividadDisparo /100; //agregue el /100
             poderDefensa = personaje.armadura * personaje.velocidad;
-            maximoDanio = 20;
+            maximoDanio = 10;
             danioProvocado = ((valorDeAtaque - poderDefensa)/maximoDanio); //le saque el *100 y efectividadDeDisparo
-        } //si no los hago public no puedo llamarlos desde program, pero si los hago public no los deberia usar en la funcion, hice una funcion de combate directamente
+        } 
 
         public void Combate(personajes luchador1, personajes luchador2)
         {

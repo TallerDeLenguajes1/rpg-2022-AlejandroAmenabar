@@ -45,10 +45,6 @@ public class program{
         }
 
         //-----COMBATE-----
-        //fijarme si esta bien la cantidad de combates
-        //revisar las formulas de los ataques
-        //revisar el remove de la lista cuando pierde
-        //de ahi en mas creo que todo bien
         funciones.Combate(Personajes);
 
         //-------FILES-------------

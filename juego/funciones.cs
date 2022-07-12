@@ -23,10 +23,6 @@ namespace juego
                             {
                                 string responseBody = objReader.ReadToEnd();
                                 personajesGot = JsonSerializer.Deserialize<List<Caracther>>(responseBody);
-                                // foreach (Caracther personaje in personajesGot)
-                                // {
-                                //     Console.WriteLine(personaje.FullName);
-                                // }
                             }
                             return personajesGot;   
                         }else
@@ -66,8 +62,9 @@ namespace juego
         public static List<personajes> Combate(List<personajes> Personajes)
         {
             var rnd = new Random();
+            int techo = Personajes.Count;
             
-            for (int i = 0; i < Personajes.Count; i++) 
+            for (int i = 0; i < techo-1; i++) 
             {
                 var numero1 = rnd.Next(0,Personajes.Count);
                 int numero2;
@@ -87,7 +84,7 @@ namespace juego
                     luchador1.Combate(luchador1,luchador2);
                 }
 
-                System.Console.WriteLine("\n\nResultados del Combate"+i); //revisar no me da bien todavia
+                System.Console.WriteLine("\n\nResultados del Combate "+i); 
                 System.Console.WriteLine("\nluchador 1");
                 luchador1.mostrarCaracteristicas(luchador1);
                 luchador1.mostrarDatos(luchador1);
@@ -123,7 +120,6 @@ namespace juego
 
             using(StreamWriter lectura = File.AppendText(archivo)) //con el using ya no dependo del close
             { 
-                //controlar si ya estan creados o no cuadno ya existe el archivo  
                 lectura.WriteLine("Personajes Ganadores"+";"+"Fuerza"+";"+"Salud"+"\n" );
                 lectura.WriteLine(Personajes[0].nombre + ";"+ Personajes[0].fuerza +";"+ Personajes[0].salud);
             } 
