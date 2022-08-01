@@ -66,7 +66,7 @@ namespace juego
             
             for (int i = 0; i < techo-1; i++) 
             {
-                var numero1 = rnd.Next(0,Personajes.Count);
+                var numero1 = rnd.Next(0,Personajes.Count); //no necesito 0
                 int numero2;
                 do
                 {
@@ -95,9 +95,15 @@ namespace juego
 
                 if(luchador1.salud > luchador2.salud){
                     Personajes.Remove(luchador2);
+                    Console.WriteLine("\n El ganador es: " + luchador1.nombre);
+                    luchador1.beneficiosGanador(luchador1);
                 }else{
                     Personajes.Remove(luchador1);
+                    Console.WriteLine("\n El ganador es: " + luchador2.nombre);
+                    luchador2.beneficiosGanador(luchador2);
                 }
+                Console.ReadKey(true);
+                //agregar pausa al final de cada batalla; 
             }
 
             System.Console.WriteLine("\nEl GANADOR de todos los combates es: \n ");
@@ -120,7 +126,6 @@ namespace juego
 
             using(StreamWriter lectura = File.AppendText(archivo)) //con el using ya no dependo del close
             { 
-                lectura.WriteLine("Personajes Ganadores"+";"+"Fuerza"+";"+"Salud"+"\n" );
                 lectura.WriteLine(Personajes[0].nombre + ";"+ Personajes[0].fuerza +";"+ Personajes[0].salud);
             } 
         }

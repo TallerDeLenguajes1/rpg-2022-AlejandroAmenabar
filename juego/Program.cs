@@ -11,6 +11,7 @@ public class program{
 
         List<personajes> Personajes = new List<personajes>();
 
+        Console.WriteLine("\n\t----BIENVENIDO----");
         Console.WriteLine("\nDesea crear participantes nuevos? 1-si 0-no");
         int opcion = Convert.ToInt32(Console.ReadLine());
         if (opcion == 0)
@@ -43,7 +44,9 @@ public class program{
             //--------FILES JSON--------
             funciones.CrearFileJson(Personajes);
         }
+        Console.ReadKey(true);
 
+        Console.WriteLine("\n\tQue comience la Batalla!");
         //-----COMBATE-----
         funciones.Combate(Personajes);
 

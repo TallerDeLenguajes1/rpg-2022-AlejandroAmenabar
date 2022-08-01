@@ -39,6 +39,7 @@ namespace juego
         public int fuerza{get;set;}
         public int nivel{get;set;}
         public int armadura{get;set;}
+        
         public void cargarCaracteristicasAleatorias()
         {
             Random rnd = new Random();
@@ -59,11 +60,12 @@ namespace juego
         }
 
         //-----------------DATOS-----------------------
-        string ? tipo;
+        public string ? tipo{get;set;}
+
         public string ? nombre{get;set;}
-        string ? apodo{get;set;}
+        public string ? apodo{get;set;}
         DateTime fechaNacimiento{get;set;}
-        int edad{get;set;}
+        public int edad{get;set;}
         public int salud{get;set;}        
         public void cargarDatosAleatorios(List<Caracther> personajesGot)
         {
@@ -110,8 +112,12 @@ namespace juego
 
         public void Combate(personajes luchador1, personajes luchador2)
         {
-            luchador1.salud = Convert.ToInt32(luchador1.salud - luchador2.danioProvocado);
-            luchador2.salud = Convert.ToInt32(luchador2.salud - luchador1.danioProvocado);
+            if(luchador1.danioProvocado>0) {
+                luchador2.salud = Convert.ToInt32(luchador2.salud - luchador1.danioProvocado);
+            }
+            if(luchador2.danioProvocado>0){
+                luchador1.salud = Convert.ToInt32(luchador1.salud - luchador2.danioProvocado);
+            }
         }
         public void beneficiosGanador(personajes luchador)
         {
